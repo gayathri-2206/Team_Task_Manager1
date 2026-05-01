@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Signup | Join Workspace</title>
+  <!-- Google Fonts + modern reset -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #eef2fc 0%, #e0e8f2 100%);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    /* main card container */
+    .signup-container {
+      max-width: 1200px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 44px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2), 0 6px 14px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    /* two column layout: image + form */
+    .signup-grid {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    /* left side: image & branding (ADDED IMAGE) */
+    .signup-visual {
+      flex: 1.2;
+      background: linear-gradient(125deg, #0f2b3d 0%, #1e4a6b 100%);
+      padding: 48px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+    }
+
+    .signup-visual img {
+      max-width: 260px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 28px;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.2));
+      border-radius: 24px;
+    }
+
+    .signup-visual h3 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 12px;
+    }
+
+    .signup-visual p {
+      font-size: 1rem;
+      opacity: 0.9;
+      max-width: 260px;
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+
+    /* right side: original form elements exactly preserved */
+    .signup-form {
+      flex: 1;
+      padding: 48px 44px;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* original h2 remains */
+    .signup-form h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1a2c3e;
+      margin-bottom: 32px;
+      letter-spacing: -0.3px;
+      border-left: 5px solid #1e4a6b;
+      padding-left: 20px;
+    }
+
+    /* style inputs — but keep original IDs and behavior */
+    .signup-form input, .signup-form select {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 1rem;
+      font-family: 'Inter', monospace;
+      background: #f8fafd;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 30px;
+      transition: all 0.2s;
+      margin-bottom: 20px;
+      outline: none;
+    }
+
+    .signup-form input:focus, .signup-form select:focus {
+      border-color: #1e4a6b;
+      box-shadow: 0 0 0 4px rgba(30, 74, 107, 0.12);
+      background: white;
+    }
+
+    /* select arrow custom subtle */
+    .signup-form select {
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%234a627a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+    }
+
+    /* Signup button — original onclick preserved */
+    .signup-form button {
+      background: #1e4a6b;
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 14px 28px;
+      width: 100%;
+      border-radius: 40px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: 0.2s;
+      margin-top: 6px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    .signup-form button:hover {
+      background: #0f334b;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px rgba(30, 74, 107, 0.25);
+    }
+
+    /* hint or terms (not original but adds professionalism without breaking ids) */
+    .legal-hint {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #6f8faa;
+      margin-top: 16px;
+    }
+
+    /* responsive */
+    @media (max-width: 780px) {
+      .signup-grid {
+        flex-direction: column;
+      }
+      .signup-visual {
+        padding: 32px 20px;
+      }
+      .signup-visual img {
+        max-width: 140px;
+      }
+      .signup-form {
+        padding: 36px 28px;
+      }
+      .signup-form h2 {
+        font-size: 1.8rem;
+      }
+    }
+
+    /* all original IDs: name, email, password, role, button with onclick */
+    /* no functionality changed, script.js remains external */
+  </style>
+</head>
+<body>
+<div class="signup-container">
+  <div class="signup-grid">
+    <!-- LEFT SIDE: ADDED IMAGE (professional onboarding illustration) -->
+    <div class="signup-visual">
+      <img src="https://cdn-icons-png.flaticon.com/512/2917/2917995.png" 
+           alt="Team collaboration illustration" 
+           onerror="this.src='https://placehold.co/280x280?text=🚀'">
+      <h3>Join the platform</h3>
+      <p>Start managing projects & tasks with your team</p>
+    </div>
+
+    <!-- RIGHT SIDE: ALL ORIGINAL SIGNUP ELEMENTS (IDs, select options, events) -->
+    <div class="signup-form">
+      <h2>Signup</h2>
+      <!-- original fields: name, email, password, role select, signup button -->
+      <input id="name" placeholder="Name" autocomplete="name">
+      <input id="email" placeholder="Email" autocomplete="email">
+      <input id="password" type="password" placeholder="Password" autocomplete="new-password">
+      
+      <select id="role">
+        <option value="Member">Member</option>
+        <option value="Admin">Admin</option>
+      </select>
+      
+      <!-- original button with onclick="signup()" untouched -->
+      <button onclick="signup()">Signup</button>
+      <div class="legal-hint">By signing up, you agree to our terms</div>
+    </div>
+  </div>
+</div>
+
+<!-- external script reference unchanged -->
+<script src="script.js"></script>
+
+<!-- all IDs and event handlers exactly as in original spec. 
+     Image added for professional UI, layout improved but no original element removed. -->
+</body>
+</html>
