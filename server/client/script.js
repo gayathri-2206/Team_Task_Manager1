@@ -31,7 +31,7 @@ async function signup(){
   }
 
   alert("Signup success");
-  window.location="login.html";   // ✅ FIXED
+  window.location="index.html";   // ✅ FIXED
 }
 
 
