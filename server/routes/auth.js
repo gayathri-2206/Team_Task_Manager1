@@ -4,16 +4,44 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 // Signup
-router.post("/signup", async (req,res)=>{
-  const {name,email,password,role} = req.body;
-  const hash = await bcrypt.hash(password,10);
+router.post("/signup", (req, res) => {
+
+  const { name, email, password, role } = req.body;
+
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: "All fields required" });
+  }
 
   db.query(
-    "INSERT INTO users (name,email,password,role) VALUES (?,?,?,?)",
-    [name,email,hash,role],
-    (err)=>{
-      if(err) return res.status(400).json(err);
-      res.json("User created");
+    "SELECT * FROM users WHERE email=?",
+    [email],
+    (err, result) => {
+
+      if (err) {
+        console.log("DB ERROR:", err);
+        return res.status(500).json({ message: "Database error" });
+      }
+
+      // ✅ FIX: check result exists
+      if (result && result.length > 0) {
+        return res.status(400).json({ message: "User already exists" });
+      }
+
+      const hashed = password; // (or bcrypt if used)
+
+      db.query(
+        "INSERT INTO users (name, email, password, role) VALUES (?,?,?,?)",
+        [name, email, hashed, role],
+        (err, result) => {
+
+          if (err) {
+            console.log("INSERT ERROR:", err);
+            return res.status(500).json({ message: "Insert failed" });
+          }
+
+          res.json({ message: "Signup successful" });
+        }
+      );
     }
   );
 });
