@@ -20,7 +20,7 @@ A full-stack web application to manage projects, tasks, and team collaboration w
 * 📊 Dashboard Overview
 * 🌐 Deployed on Railway
 
----
+
 
 ## 🛠️ Tech Stack
 
@@ -42,7 +42,7 @@ A full-stack web application to manage projects, tasks, and team collaboration w
 * JWT Authentication
 
 
----
+
 
 ## 📂 Project Structure
 
@@ -67,7 +67,7 @@ team-task-manager/
 └── README.md
 ```
 
----
+
 
 ## ⚙️ Installation & Setup
 
@@ -78,7 +78,7 @@ git clone https://github.com/gayathri-2206/Team_Task_Manager1.git
 cd team-task-manager
 ```
 
----
+
 
 ### 2️⃣ Install dependencies
 
@@ -87,7 +87,7 @@ cd server
 npm install
 ```
 
----
+
 
 ### 3️⃣ Environment Variables
 
@@ -104,7 +104,7 @@ JWT_SECRET=secret
 PORT=5000
 ```
 
----
+
 
 ### 4️⃣ Run the server
 
@@ -112,7 +112,7 @@ PORT=5000
 npm start
 ```
 
----
+
 
 ## 🌐 Deployment
 
@@ -125,13 +125,12 @@ This project is deployed using **Railway**.
 * Add environment variables in Railway dashboard
 * Deploy
 
----
+
 
 ## 🔗 Live Demo
 
 👉 https://teamtaskmanager1-production.up.railway.app/
 
----
 
 
 
@@ -140,7 +139,7 @@ This project is deployed using **Railway**.
 * JWT tokens are generated on login
 * Protected routes require valid token
 
----
+
 
 ## 📌 API Endpoints
 
@@ -160,7 +159,7 @@ This project is deployed using **Railway**.
 * `GET /api/tasks`
 * `POST /api/tasks`
 
----
+
 
 ## 🚀 Future Improvements
 
@@ -169,20 +168,19 @@ This project is deployed using **Railway**.
 * 📈 Analytics dashboard
 * 🔔 Notifications
 
----
 
 ## 🤝 Contributing
 
 Contributions are welcome!
 Feel free to fork the repo and submit a pull request.
 
----
+
 
 ## 📄 License
 
 This project is licensed under the MIT License.
 
----
+
 
 ## 👩‍💻 Author
 
