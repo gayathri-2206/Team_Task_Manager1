@@ -13,11 +13,11 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/projects", require("./routes/projects"));
 app.use("/api/tasks", require("./routes/tasks"));
 
-// serve frontend (FIXED)
-app.use(express.static(path.join(process.cwd(), "client")));
+// ✅ FIXED FRONTEND SERVING
+app.use(express.static(path.join(__dirname, "client")));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(process.cwd(), "client/index.html"));
+  res.sendFile(path.join(__dirname, "client/index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
