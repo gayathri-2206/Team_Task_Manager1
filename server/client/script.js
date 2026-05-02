@@ -1,4 +1,4 @@
-const API = "/api";   // ✅ FIXED (removed localhost)
+const API = "https://teamtaskmanager1-production.up.railway.app/api";   // ✅ FIXED (removed localhost)
 
 // ✅ STORE USERS FOR NAME MAPPING
 let usersList = [];
@@ -38,12 +38,15 @@ async function signup(){
 // ================= LOGIN =================
 async function login(){
 
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
   const res = await fetch(API+"/auth/login",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body: JSON.stringify({
-      email: email.value,
-      password: password.value
+      email: email,
+      password: password
     })
   });
 
