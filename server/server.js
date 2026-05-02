@@ -13,7 +13,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/projects", require("./routes/projects"));
 app.use("/api/tasks", require("./routes/tasks"));
 
-// ✅ FIXED FRONTEND SERVING
+// serve frontend (FIXED)
 app.use(express.static(path.join(__dirname, "client")));
 
 app.get("/", (req, res) => {
