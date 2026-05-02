@@ -1,7 +1,8 @@
-const API = "http://localhost:5000/api";
+const API = "/api";   // ✅ FIXED (removed localhost)
 
 // ✅ STORE USERS FOR NAME MAPPING
 let usersList = [];
+
 async function signup(){
 
   console.log("Signup clicked");
@@ -16,7 +17,7 @@ async function signup(){
     return;
   }
 
-  const res = await fetch("http://localhost:5000/api/auth/signup",{
+  const res = await fetch(API + "/auth/signup",{   // ✅ FIXED
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body: JSON.stringify({name,email,password,role})
@@ -30,8 +31,10 @@ async function signup(){
   }
 
   alert("Signup success");
-  window.location="index.html";
+  window.location="login.html";   // ✅ FIXED
 }
+
+
 // ================= LOGIN =================
 async function login(){
 
@@ -46,13 +49,11 @@ async function login(){
 
   const data = await res.json();
 
-  // ❌ LOGIN FAILED
   if(!res.ok){
     alert(data.message || "Invalid email or password");
-    return; // STOP here
+    return;
   }
 
-  // ✅ LOGIN SUCCESS
   localStorage.setItem("token",data.token);
   localStorage.setItem("role",data.role);
   localStorage.setItem("id",data.id);
@@ -60,12 +61,13 @@ async function login(){
   window.location="dashboard.html";
 }
 
+
 // ================= LOAD USERS =================
 async function loadUsers(){
   const res = await fetch(API+"/auth/users");
   const users = await res.json();
 
-  usersList = users; // ✅ SAVE USERS
+  usersList = users;
 
   const select = document.getElementById("assignedTo");
   if(!select) return;
@@ -77,6 +79,7 @@ async function loadUsers(){
     select.innerHTML += `<option value="${u.id}">${name}</option>`;
   });
 }
+
 
 // ================= LOAD PROJECTS =================
 async function loadProjects(){
@@ -96,6 +99,7 @@ async function loadProjects(){
     select.innerHTML += `<option value="${p.id}">${name}</option>`;
   });
 }
+
 
 // ================= CREATE PROJECT =================
 async function createProject(){
@@ -118,6 +122,7 @@ async function createProject(){
   alert("Project created");
   loadProjects();
 }
+
 
 // ================= CREATE TASK =================
 async function createTask(){
@@ -152,6 +157,7 @@ async function createTask(){
   loadTasks();
 }
 
+
 // ================= LOAD TASKS =================
 async function loadTasks(){
 
@@ -165,13 +171,11 @@ async function loadTasks(){
   const data = await res.json();
   const today = new Date();
 
-  // FILTER BASED ON ROLE
   const filtered = data.filter(t=>{
     if(role === "Admin") return true;
     return Number(t.assignedTo) === Number(userId);
   });
 
-  // ===== STATS =====
   let pending = 0, progress = 0, done = 0, overdue = 0;
   let userTasks = {};
 
@@ -187,18 +191,15 @@ async function loadTasks(){
     userTasks[t.assignedTo] = (userTasks[t.assignedTo] || 0) + 1;
   });
 
-  // ===== SHOW STATS =====
   const statsDiv = document.getElementById("stats");
 
   if(statsDiv){
     statsDiv.innerHTML = `
       <h3>Dashboard Stats</h3>
-
       <p><b>Total Tasks:</b> ${filtered.length}</p>
       <p><b>Pending:</b> ${pending}</p>
       <p><b>In Progress:</b> ${progress}</p>
       <p><b>Completed:</b> ${done}</p>
-
       <p style="color:red;"><b>Overdue Tasks:</b> ${overdue}</p>
 
       <h4>Tasks per User</h4>
@@ -210,7 +211,6 @@ async function loadTasks(){
     `;
   }
 
-  // ===== TASK LIST =====
   const taskList = document.getElementById("taskList");
 
   taskList.innerHTML = filtered.map(t=>{
@@ -233,6 +233,7 @@ async function loadTasks(){
   }).join("");
 }
 
+
 // ================= UPDATE STATUS =================
 async function updateStatus(id,status){
   await fetch(API+"/tasks/"+id,{
@@ -247,12 +248,12 @@ async function updateStatus(id,status){
   loadTasks();
 }
 
+
 // ================= INIT =================
 window.onload = ()=>{
 
   const role = localStorage.getItem("role");
 
-  // Show role
   if(document.getElementById("roleDisplay")){
     document.getElementById("roleDisplay").innerHTML =
       "<b>Logged in as:</b> " + role;
@@ -261,12 +262,10 @@ window.onload = ()=>{
   const adminPanel = document.getElementById("adminPanel");
   const memberPanel = document.getElementById("memberPanel");
 
-  // ✅ ADMIN VIEW
   if(role === "Admin"){
     if(memberPanel) memberPanel.style.display = "none";
   }
 
-  // ✅ MEMBER VIEW
   if(role === "Member"){
     if(adminPanel) adminPanel.style.display = "none";
   }
