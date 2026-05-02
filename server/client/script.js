@@ -3,36 +3,47 @@ const API = "/api";   // ✅ FIXED (removed localhost)
 // ✅ STORE USERS FOR NAME MAPPING
 let usersList = [];
 
-async function signup(){
+router.post("/signup", (req, res) => {
 
-  console.log("Signup clicked");
+  const { name, email, password, role } = req.body;
 
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const role = document.getElementById("role").value;
-
-  if(!name || !email || !password){
-    alert("Fill all fields");
-    return;
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: "All fields required" });
   }
 
-  const res = await fetch(API + "/auth/signup",{   // ✅ FIXED
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({name,email,password,role})
-  });
+  db.query(
+    "SELECT * FROM users WHERE email=?",
+    [email],
+    (err, result) => {
 
-  const data = await res.json();
+      if (err) {
+        console.log("DB ERROR:", err);
+        return res.status(500).json({ message: "Database error" });
+      }
 
-  if(!res.ok){
-    alert(data.message || "Signup failed");
-    return;
-  }
+      // ✅ FIX: check result exists
+      if (result && result.length > 0) {
+        return res.status(400).json({ message: "User already exists" });
+      }
 
-  alert("Signup success");
-  window.location="login.html";   // ✅ FIXED
-}
+      const hashed = password; // (or bcrypt if used)
+
+      db.query(
+        "INSERT INTO users (name, email, password, role) VALUES (?,?,?,?)",
+        [name, email, hashed, role],
+        (err, result) => {
+
+          if (err) {
+            console.log("INSERT ERROR:", err);
+            return res.status(500).json({ message: "Insert failed" });
+          }
+
+          res.json({ message: "Signup successful" });
+        }
+      );
+    }
+  );
+});
 
 
 // ================= LOGIN =================
